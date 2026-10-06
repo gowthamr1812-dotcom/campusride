@@ -49,6 +49,61 @@ const STATUS_CONFIG = {
     bg: 'bg-red-50 text-red-700 border-red-300 animate-pulse',
     icon: ShieldAlert,
     label: 'Emergency'
+  },
+  active: {
+    bg: 'bg-emerald-50 text-emerald-700 border-emerald-200',
+    icon: CheckCircle2,
+    label: 'Active'
+  },
+  inactive: {
+    bg: 'bg-slate-100 text-slate-600 border-slate-300',
+    icon: XCircle,
+    label: 'Inactive'
+  },
+  scheduled: {
+    bg: 'bg-blue-50 text-blue-700 border-blue-200',
+    icon: Clock,
+    label: 'Scheduled'
+  },
+  ready: {
+    bg: 'bg-indigo-50 text-indigo-700 border-indigo-200',
+    icon: CheckCircle2,
+    label: 'Ready'
+  },
+  started: {
+    bg: 'bg-emerald-50 text-emerald-700 border-emerald-200',
+    icon: Activity,
+    label: 'In Progress'
+  },
+  completed: {
+    bg: 'bg-slate-100 text-slate-700 border-slate-300',
+    icon: CheckCircle2,
+    label: 'Completed'
+  },
+  cancelled: {
+    bg: 'bg-rose-50 text-rose-700 border-rose-200',
+    icon: XCircle,
+    label: 'Cancelled'
+  },
+  available: {
+    bg: 'bg-emerald-50 text-emerald-700 border-emerald-200',
+    icon: CheckCircle2,
+    label: 'Available'
+  },
+  assigned: {
+    bg: 'bg-blue-50 text-blue-700 border-blue-200',
+    icon: CheckCircle2,
+    label: 'Assigned'
+  },
+  reserved: {
+    bg: 'bg-purple-50 text-purple-700 border-purple-200',
+    icon: Clock,
+    label: 'Reserved'
+  },
+  blocked: {
+    bg: 'bg-rose-50 text-rose-700 border-rose-200',
+    icon: XCircle,
+    label: 'Blocked'
   }
 };
 

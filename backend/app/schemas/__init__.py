@@ -22,6 +22,25 @@ from app.schemas.people import (
     StudentResponse,
     StudentListResponse
 )
+from app.schemas.transport import (
+    RouteStopCreate,
+    RouteStopResponse,
+    RouteCreate,
+    RouteUpdate,
+    RouteResponse,
+    RouteListResponse,
+    BusSeatResponse,
+    SeatAssignmentRequest,
+    BusCreate,
+    BusUpdate,
+    BusResponse,
+    BusListResponse,
+    BusSummaryResponse,
+    TripCreate,
+    TripUpdate,
+    TripResponse,
+    TripListResponse
+)
 
 __all__ = [
     "HealthResponse",
@@ -43,5 +62,22 @@ __all__ = [
     "StudentCreate",
     "StudentUpdate",
     "StudentResponse",
-    "StudentListResponse"
+    "StudentListResponse",
+    "RouteStopCreate",
+    "RouteStopResponse",
+    "RouteCreate",
+    "RouteUpdate",
+    "RouteResponse",
+    "RouteListResponse",
+    "BusSeatResponse",
+    "SeatAssignmentRequest",
+    "BusCreate",
+    "BusUpdate",
+    "BusResponse",
+    "BusListResponse",
+    "BusSummaryResponse",
+    "TripCreate",
+    "TripUpdate",
+    "TripResponse",
+    "TripListResponse"
 ]

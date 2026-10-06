@@ -9,6 +9,11 @@ import DashboardShell from './pages/DashboardShell';
 import Drivers from './pages/Drivers';
 import BusIncharges from './pages/BusIncharges';
 import Students from './pages/Students';
+import Buses from './pages/Buses';
+import BusDetails from './pages/BusDetails';
+import RoutesPage from './pages/Routes';
+import Seats from './pages/Seats';
+import Trips from './pages/Trips';
 import Login from './pages/Login';
 import NotFound from './pages/NotFound';
 
@@ -38,6 +43,11 @@ function AppLayout() {
             <Route path="/drivers" element={<Drivers />} />
             <Route path="/incharges" element={<BusIncharges />} />
             <Route path="/students" element={<Students />} />
+            <Route path="/buses" element={<Buses />} />
+            <Route path="/buses/:busIdentifier" element={<BusDetails />} />
+            <Route path="/routes" element={<RoutesPage />} />
+            <Route path="/seats" element={<Seats />} />
+            <Route path="/trips" element={<Trips />} />
             {/* Catch-all for modules in subsequent phases */}
             <Route path="*" element={<NotFound />} />
           </Routes>
