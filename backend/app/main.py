@@ -2,16 +2,16 @@ from contextlib import asynccontextmanager
 import logging
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import JSONResponse
 
 from app.core.config import settings
+from app.core.database import engine, Base, check_db_connection
 from app.core.exceptions import (
     CampusRideException,
     campusride_exception_handler,
     global_exception_handler,
 )
-from app.core.database import check_db_connection
 from app.routers.api import api_router
+from app.seed.seed_users import seed_default_users
 
 # Configure structured logging
 logging.basicConfig(
@@ -28,6 +28,13 @@ async def lifespan(app: FastAPI):
     db_ok = check_db_connection()
     if db_ok:
         logger.info("Database connection successfully established.")
+        # Ensure schema tables exist and seed demo users for all 5 roles
+        try:
+            Base.metadata.create_all(bind=engine)
+            seed_default_users()
+            logger.info("Database models initialized and default users seeded.")
+        except Exception as e:
+            logger.error(f"Error during database startup initialization: {e}")
     else:
         logger.warning("Database connection failed or not yet reachable.")
     yield

@@ -1,17 +1,25 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { ThemeProvider, useTheme } from './context/ThemeContext';
+import { AuthProvider, useAuth } from './context/AuthContext';
 import Header from './components/Header';
 import Sidebar from './components/Sidebar';
+import ProtectedRoute from './components/ProtectedRoute';
 import DashboardShell from './pages/DashboardShell';
+import Login from './pages/Login';
 import NotFound from './pages/NotFound';
 
 function AppLayout() {
   const { sidebarCollapsed } = useTheme();
+  const { isAuthenticated } = useAuth();
+
+  if (!isAuthenticated) {
+    return <Navigate to="/login" replace />;
+  }
 
   return (
     <div className="min-h-screen bg-[#E8EDF3] text-slate-800 flex">
-      {/* Fixed Sidebar */}
+      {/* Dynamic Role Sidebar */}
       <Sidebar />
 
       {/* Main Content Area */}
@@ -24,7 +32,7 @@ function AppLayout() {
         <main className="flex-1 p-6 max-w-7xl w-full mx-auto">
           <Routes>
             <Route path="/" element={<DashboardShell />} />
-            {/* Catch-all for modules scheduled in subsequent phases */}
+            {/* Catch-all for modules in subsequent phases */}
             <Route path="*" element={<NotFound />} />
           </Routes>
         </main>
@@ -36,9 +44,24 @@ function AppLayout() {
 export default function App() {
   return (
     <ThemeProvider>
-      <Router>
-        <AppLayout />
-      </Router>
+      <AuthProvider>
+        <Router>
+          <Routes>
+            {/* Public authentication page */}
+            <Route path="/login" element={<Login />} />
+
+            {/* Authenticated application routes */}
+            <Route
+              path="/*"
+              element={
+                <ProtectedRoute>
+                  <AppLayout />
+                </ProtectedRoute>
+              }
+            />
+          </Routes>
+        </Router>
+      </AuthProvider>
     </ThemeProvider>
   );
 }

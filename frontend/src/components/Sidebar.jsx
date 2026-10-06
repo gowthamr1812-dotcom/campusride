@@ -29,78 +29,211 @@ import {
   SlidersHorizontal 
 } from 'lucide-react';
 import { useTheme } from '../context/ThemeContext';
-
-const NAV_SECTIONS = [
-  {
-    title: 'OVERVIEW',
-    items: [
-      { name: 'Dashboard', path: '/', icon: LayoutDashboard },
-    ]
-  },
-  {
-    title: 'TRANSPORT',
-    items: [
-      { name: 'Buses', path: '/buses', icon: Bus },
-      { name: 'Live Tracking', path: '/tracking', icon: MapPin },
-      { name: 'Routes', path: '/routes', icon: GitFork },
-      { name: 'Stops', path: '/stops', icon: MapPinned },
-      { name: 'Seats', path: '/seats', icon: Armchair },
-      { name: 'Trips', path: '/trips', icon: Navigation },
-    ]
-  },
-  {
-    title: 'PEOPLE',
-    items: [
-      { name: 'Students', path: '/students', icon: Users },
-      { name: 'Drivers', path: '/drivers', icon: UserSquare2 },
-      { name: 'Bus Incharges', path: '/incharges', icon: ShieldCheck },
-      { name: 'Attendance', path: '/attendance', icon: ClipboardCheck },
-    ]
-  },
-  {
-    title: 'FINANCE',
-    items: [
-      { name: 'Fee Structure', path: '/fees', icon: DollarSign },
-      { name: 'Payments', path: '/payments', icon: CreditCard },
-      { name: 'Receipts', path: '/receipts', icon: Receipt },
-    ]
-  },
-  {
-    title: 'FLEET',
-    items: [
-      { name: 'Service & Maintenance', path: '/services', icon: Wrench },
-      { name: 'Diesel / Fuel', path: '/fuel', icon: Fuel },
-      { name: 'Vehicle Documents', path: '/documents', icon: FileText },
-    ]
-  },
-  {
-    title: 'SAFETY & AI',
-    items: [
-      { name: 'Emergency / SOS', path: '/emergency', icon: AlertOctagon, alert: true },
-      { name: 'Notifications', path: '/notifications', icon: Bell },
-      { name: 'Travel Instructions', path: '/instructions', icon: BookOpen },
-      { name: 'AI Assistant', path: '/ai', icon: Bot },
-    ]
-  },
-  {
-    title: 'ANALYTICS',
-    items: [
-      { name: 'Reports & Analytics', path: '/reports', icon: BarChart3 },
-    ]
-  },
-  {
-    title: 'ACCOUNT & ADMIN',
-    items: [
-      { name: 'Profile', path: '/profile', icon: User },
-      { name: 'Settings', path: '/settings', icon: Settings },
-      { name: 'Users & Roles', path: '/admin/users', icon: Shield },
-      { name: 'System Settings', path: '/admin/settings', icon: SlidersHorizontal },
-    ]
-  }
-];
+import { useAuth } from '../context/AuthContext';
 
 export default function Sidebar() {
   const { sidebarCollapsed } = useTheme();
+  const { user } = useAuth();
+
+  const role = user?.role || 'STUDENT';
+
+  // Navigation definition tailored per role
+  const getNavSections = () => {
+    if (role === 'ADMIN') {
+      return [
+        {
+          title: 'OVERVIEW',
+          items: [{ name: 'Dashboard', path: '/', icon: LayoutDashboard }]
+        },
+        {
+          title: 'TRANSPORT',
+          items: [
+            { name: 'Buses', path: '/buses', icon: Bus },
+            { name: 'Live Tracking', path: '/tracking', icon: MapPin },
+            { name: 'Routes', path: '/routes', icon: GitFork },
+            { name: 'Stops', path: '/stops', icon: MapPinned },
+            { name: 'Seats', path: '/seats', icon: Armchair },
+            { name: 'Trips', path: '/trips', icon: Navigation },
+          ]
+        },
+        {
+          title: 'PEOPLE',
+          items: [
+            { name: 'Students', path: '/students', icon: Users },
+            { name: 'Drivers', path: '/drivers', icon: UserSquare2 },
+            { name: 'Bus Incharges', path: '/incharges', icon: ShieldCheck },
+            { name: 'Attendance', path: '/attendance', icon: ClipboardCheck },
+          ]
+        },
+        {
+          title: 'FINANCE',
+          items: [
+            { name: 'Fee Structure', path: '/fees', icon: DollarSign },
+            { name: 'Payments', path: '/payments', icon: CreditCard },
+            { name: 'Receipts', path: '/receipts', icon: Receipt },
+          ]
+        },
+        {
+          title: 'FLEET',
+          items: [
+            { name: 'Maintenance', path: '/services', icon: Wrench },
+            { name: 'Diesel / Fuel', path: '/fuel', icon: Fuel },
+            { name: 'Documents', path: '/documents', icon: FileText },
+          ]
+        },
+        {
+          title: 'SAFETY & AI',
+          items: [
+            { name: 'Emergency / SOS', path: '/emergency', icon: AlertOctagon, alert: true },
+            { name: 'Notifications', path: '/notifications', icon: Bell },
+            { name: 'Safety Instructions', path: '/instructions', icon: BookOpen },
+            { name: 'AI Assistant', path: '/ai', icon: Bot },
+          ]
+        },
+        {
+          title: 'ANALYTICS',
+          items: [{ name: 'Reports & Analytics', path: '/reports', icon: BarChart3 }]
+        },
+        {
+          title: 'ADMINISTRATION',
+          items: [
+            { name: 'Users & Roles', path: '/admin/users', icon: Shield },
+            { name: 'System Settings', path: '/admin/settings', icon: SlidersHorizontal },
+          ]
+        }
+      ];
+    }
+
+    if (role === 'TRANSPORT_MANAGER') {
+      return [
+        {
+          title: 'OPERATIONS',
+          items: [{ name: 'Dashboard', path: '/', icon: LayoutDashboard }]
+        },
+        {
+          title: 'FLEET & ROUTES',
+          items: [
+            { name: 'Buses', path: '/buses', icon: Bus },
+            { name: 'Live Tracking', path: '/tracking', icon: MapPin },
+            { name: 'Routes & Stops', path: '/routes', icon: GitFork },
+            { name: 'Trips Schedule', path: '/trips', icon: Navigation },
+          ]
+        },
+        {
+          title: 'PEOPLE & LOGS',
+          items: [
+            { name: 'Students', path: '/students', icon: Users },
+            { name: 'Staff Attendance', path: '/attendance', icon: ClipboardCheck },
+            { name: 'Drivers', path: '/drivers', icon: UserSquare2 },
+            { name: 'Bus Incharges', path: '/incharges', icon: ShieldCheck },
+          ]
+        },
+        {
+          title: 'FLEET HEALTH',
+          items: [
+            { name: 'Maintenance', path: '/services', icon: Wrench },
+            { name: 'Diesel Logs', path: '/fuel', icon: Fuel },
+            { name: 'Compliance Docs', path: '/documents', icon: FileText },
+          ]
+        },
+        {
+          title: 'INCIDENTS & SAFETY',
+          items: [
+            { name: 'Emergency / SOS', path: '/emergency', icon: AlertOctagon, alert: true },
+            { name: 'Notifications', path: '/notifications', icon: Bell },
+            { name: 'Safety Instructions', path: '/instructions', icon: BookOpen },
+            { name: 'AI Operational Insights', path: '/ai', icon: Bot },
+          ]
+        },
+        {
+          title: 'REPORTS',
+          items: [{ name: 'Operational Reports', path: '/reports', icon: BarChart3 }]
+        }
+      ];
+    }
+
+    if (role === 'BUS_INCHARGE') {
+      return [
+        {
+          title: 'INCHARGE CONSOLE',
+          items: [{ name: 'Trip Console', path: '/', icon: LayoutDashboard }]
+        },
+        {
+          title: 'BUS OPERATIONS',
+          items: [
+            { name: 'My Assigned Bus', path: '/buses', icon: Bus },
+            { name: 'Route & Stops', path: '/routes', icon: GitFork },
+            { name: 'Student Manifest', path: '/students', icon: Users },
+            { name: 'Boarding Attendance', path: '/attendance', icon: ClipboardCheck },
+            { name: 'Live Tracking', path: '/tracking', icon: MapPin },
+          ]
+        },
+        {
+          title: 'SAFETY & REPORTS',
+          items: [
+            { name: 'Emergency SOS', path: '/emergency', icon: AlertOctagon, alert: true },
+            { name: 'Alerts & Messages', path: '/notifications', icon: Bell },
+            { name: 'Safety Directives', path: '/instructions', icon: BookOpen },
+          ]
+        }
+      ];
+    }
+
+    if (role === 'DRIVER') {
+      return [
+        {
+          title: 'DRIVER CABIN',
+          items: [{ name: 'Trip Dashboard', path: '/', icon: LayoutDashboard }]
+        },
+        {
+          title: 'DAILY RUN',
+          items: [
+            { name: 'My Trip & Route', path: '/trips', icon: Navigation },
+            { name: 'Navigation Map', path: '/tracking', icon: MapPin },
+            { name: 'Diesel Log Entry', path: '/fuel', icon: Fuel },
+            { name: 'Vehicle Checklist', path: '/services', icon: Wrench },
+          ]
+        },
+        {
+          title: 'SAFETY',
+          items: [
+            { name: 'Instant SOS', path: '/emergency', icon: AlertOctagon, alert: true },
+            { name: 'Directives', path: '/instructions', icon: BookOpen },
+            { name: 'Notifications', path: '/notifications', icon: Bell },
+          ]
+        }
+      ];
+    }
+
+    // STUDENT
+    return [
+      {
+        title: 'MY COMMUTE',
+        items: [
+          { name: 'Transport Pass', path: '/', icon: LayoutDashboard },
+          { name: 'Live Bus Tracking', path: '/tracking', icon: MapPin },
+          { name: 'My Route & ETA', path: '/routes', icon: GitFork },
+          { name: 'My Assigned Seat', path: '/seats', icon: Armchair },
+        ]
+      },
+      {
+        title: 'PASS & PAYMENTS',
+        items: [
+          { name: 'Fee Status & Receipts', path: '/payments', icon: CreditCard },
+        ]
+      },
+      {
+        title: 'SAFETY & AI',
+        items: [
+          { name: 'Travel Safety Guidelines', path: '/instructions', icon: BookOpen },
+          { name: 'Trip Notifications', path: '/notifications', icon: Bell },
+          { name: 'AI Campus Assistant', path: '/ai', icon: Bot },
+        ]
+      }
+    ];
+  };
+
+  const navSections = getNavSections();
 
   return (
     <aside 
@@ -119,7 +252,7 @@ export default function Sidebar() {
               Campus<span className="text-blue-600">Ride</span>
             </h1>
             <p className="text-[10px] text-slate-500 font-semibold tracking-wider uppercase">
-              Transport Management
+              {role.replace('_', ' ')}
             </p>
           </div>
         )}
@@ -127,7 +260,7 @@ export default function Sidebar() {
 
       {/* Navigation Scrollable Area */}
       <nav className="flex-1 overflow-y-auto px-3 py-4 space-y-6">
-        {NAV_SECTIONS.map((section, idx) => (
+        {navSections.map((section, idx) => (
           <div key={idx} className="space-y-1">
             {!sidebarCollapsed && (
               <div className="px-3 text-[10px] font-bold text-slate-400 tracking-wider uppercase mb-1.5">
