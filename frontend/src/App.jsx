@@ -22,6 +22,9 @@ import Maintenance from './pages/Maintenance';
 import Fuel from './pages/Fuel';
 import Documents from './pages/Documents';
 import LiveTracking from './pages/LiveTracking';
+import Emergency from './pages/Emergency';
+import Notifications from './pages/Notifications';
+import SafetyInstructions from './pages/SafetyInstructions';
 import Login from './pages/Login';
 import NotFound from './pages/NotFound';
 
@@ -64,6 +67,9 @@ function AppLayout() {
             <Route path="/fuel" element={<Fuel />} />
             <Route path="/documents" element={<Documents />} />
             <Route path="/tracking" element={<LiveTracking />} />
+            <Route path="/emergency" element={<Emergency />} />
+            <Route path="/notifications" element={<Notifications />} />
+            <Route path="/instructions" element={<SafetyInstructions />} />
             {/* Catch-all for modules in subsequent phases */}
             <Route path="*" element={<NotFound />} />
           </Routes>

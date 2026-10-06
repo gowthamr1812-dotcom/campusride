@@ -17,6 +17,7 @@ from app.seed.seed_transport import seed_transport
 from app.seed.seed_attendance import seed_attendance
 from app.seed.seed_finance import seed_finance
 from app.seed.seed_fleet import seed_fleet
+from app.seed.seed_safety import seed_safety
 
 # Configure structured logging
 logging.basicConfig(
@@ -42,7 +43,8 @@ async def lifespan(app: FastAPI):
             seed_attendance()
             seed_finance()
             seed_fleet()
-            logger.info("Database models initialized and default users, people, transport, attendance, finance, and fleet seeded.")
+            seed_safety()
+            logger.info("Database models initialized and default users, people, transport, attendance, finance, fleet, and safety seeded.")
         except Exception as e:
             logger.error(f"Error during database startup initialization: {e}")
     else:
@@ -86,7 +88,10 @@ app.include_router(api_router, prefix=settings.API_V1_STR)
 
 # Top-level WebSocket mount for live telematics stream
 from app.routers.tracking import websocket_tracking_endpoint
+from app.routers.safety import websocket_notifications_endpoint
+
 app.add_api_websocket_route("/ws/tracking", websocket_tracking_endpoint)
+app.add_api_websocket_route("/ws/notifications", websocket_notifications_endpoint)
 
 
 @app.get("/", tags=["Root"])

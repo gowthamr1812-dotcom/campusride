@@ -5,6 +5,13 @@ from app.models.transport import Route, RouteStop, Bus, BusSeat, Trip
 from app.models.attendance import StudentAttendance, StaffAttendance
 from app.models.finance import FeeStructure, StudentFee, Payment, Receipt
 from app.models.fleet import MaintenanceLog, FuelLog, VehicleDocument
+from app.models.safety import (
+    EmergencyIncident,
+    Notification,
+    NotificationReadStatus,
+    SafetyInstruction,
+    InstructionAcknowledgment
+)
 
 __all__ = [
     "BaseModel",
@@ -28,5 +35,10 @@ __all__ = [
     "Receipt",
     "MaintenanceLog",
     "FuelLog",
-    "VehicleDocument"
+    "VehicleDocument",
+    "EmergencyIncident",
+    "Notification",
+    "NotificationReadStatus",
+    "SafetyInstruction",
+    "InstructionAcknowledgment"
 ]

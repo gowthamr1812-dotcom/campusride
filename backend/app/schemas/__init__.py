@@ -89,6 +89,20 @@ from app.schemas.tracking import (
     LiveTrackingListResponse,
     SimulationStepResponse
 )
+from app.schemas.safety import (
+    EmergencyTriggerRequest,
+    EmergencyIncidentUpdate,
+    EmergencyIncidentResponse,
+    EmergencyIncidentListResponse,
+    EmergencySummaryResponse,
+    NotificationCreate,
+    NotificationResponse,
+    NotificationListResponse,
+    SafetyInstructionCreate,
+    SafetyInstructionResponse,
+    SafetyInstructionListResponse,
+    AcknowledgmentResponse
+)
 
 __all__ = [
     "HealthResponse",
@@ -167,5 +181,17 @@ __all__ = [
     "StopEtaInfo",
     "LiveBusTelemetry",
     "LiveTrackingListResponse",
-    "SimulationStepResponse"
+    "SimulationStepResponse",
+    "EmergencyTriggerRequest",
+    "EmergencyIncidentUpdate",
+    "EmergencyIncidentResponse",
+    "EmergencyIncidentListResponse",
+    "EmergencySummaryResponse",
+    "NotificationCreate",
+    "NotificationResponse",
+    "NotificationListResponse",
+    "SafetyInstructionCreate",
+    "SafetyInstructionResponse",
+    "SafetyInstructionListResponse",
+    "AcknowledgmentResponse"
 ]
