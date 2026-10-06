@@ -21,6 +21,7 @@ import Receipts from './pages/Receipts';
 import Maintenance from './pages/Maintenance';
 import Fuel from './pages/Fuel';
 import Documents from './pages/Documents';
+import LiveTracking from './pages/LiveTracking';
 import Login from './pages/Login';
 import NotFound from './pages/NotFound';
 
@@ -62,6 +63,7 @@ function AppLayout() {
             <Route path="/services" element={<Maintenance />} />
             <Route path="/fuel" element={<Fuel />} />
             <Route path="/documents" element={<Documents />} />
+            <Route path="/tracking" element={<LiveTracking />} />
             {/* Catch-all for modules in subsequent phases */}
             <Route path="*" element={<NotFound />} />
           </Routes>

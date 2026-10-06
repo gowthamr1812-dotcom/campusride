@@ -84,6 +84,10 @@ app.add_exception_handler(Exception, global_exception_handler)
 # Include API router
 app.include_router(api_router, prefix=settings.API_V1_STR)
 
+# Top-level WebSocket mount for live telematics stream
+from app.routers.tracking import websocket_tracking_endpoint
+app.add_api_websocket_route("/ws/tracking", websocket_tracking_endpoint)
+
 
 @app.get("/", tags=["Root"])
 async def root():

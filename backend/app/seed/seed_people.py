@@ -124,6 +124,7 @@ def seed_people(db: Session = None):
 
         # Seed 320 Students (16 students per bus across 20 buses)
         if db.query(Student).count() == 0:
+            student_user = db.query(User).filter(User.role == "STUDENT").first()
             students = []
             stu_idx = 1
             for route_idx, (r_code, r_name, bus_num) in enumerate(ROUTES):
@@ -135,12 +136,16 @@ def seed_people(db: Session = None):
                     year = (stu_idx % 4) + 1
                     pay_status = PAYMENT_STATUSES[stu_idx % len(PAYMENT_STATUSES)]
 
+                    u_id = student_user.id if (stu_idx == 1 and student_user) else None
+                    u_phone = student_user.phone if (stu_idx == 1 and student_user) else f"+91 98405 {50000 + stu_idx}"
+
                     students.append(Student(
                         student_id=f"STU-{stu_idx:04d}",
+                        user_id=u_id,
                         name=full_name,
                         department=dept,
                         year=year,
-                        phone=f"+91 98405 {50000 + stu_idx}",
+                        phone=u_phone,
                         parent_phone=f"+91 98406 {60000 + stu_idx}",
                         bus=bus_num,
                         route=r_name,

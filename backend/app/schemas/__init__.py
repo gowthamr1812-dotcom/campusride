@@ -82,6 +82,13 @@ from app.schemas.fleet import (
     VehicleDocumentListResponse,
     FleetSummaryResponse
 )
+from app.schemas.tracking import (
+    GPSLocationPayload,
+    StopEtaInfo,
+    LiveBusTelemetry,
+    LiveTrackingListResponse,
+    SimulationStepResponse
+)
 
 __all__ = [
     "HealthResponse",
@@ -155,5 +162,10 @@ __all__ = [
     "VehicleDocumentUpdate",
     "VehicleDocumentResponse",
     "VehicleDocumentListResponse",
-    "FleetSummaryResponse"
+    "FleetSummaryResponse",
+    "GPSLocationPayload",
+    "StopEtaInfo",
+    "LiveBusTelemetry",
+    "LiveTrackingListResponse",
+    "SimulationStepResponse"
 ]
