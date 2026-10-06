@@ -15,6 +15,7 @@ from app.seed.seed_users import seed_default_users
 from app.seed.seed_people import seed_people
 from app.seed.seed_transport import seed_transport
 from app.seed.seed_attendance import seed_attendance
+from app.seed.seed_finance import seed_finance
 
 # Configure structured logging
 logging.basicConfig(
@@ -38,7 +39,8 @@ async def lifespan(app: FastAPI):
             seed_people()
             seed_transport()
             seed_attendance()
-            logger.info("Database models initialized and default users, people, transport, and attendance seeded.")
+            seed_finance()
+            logger.info("Database models initialized and default users, people, transport, attendance, and finance seeded.")
         except Exception as e:
             logger.error(f"Error during database startup initialization: {e}")
     else:

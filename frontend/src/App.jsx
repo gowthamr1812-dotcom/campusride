@@ -15,6 +15,9 @@ import RoutesPage from './pages/Routes';
 import Seats from './pages/Seats';
 import Trips from './pages/Trips';
 import Attendance from './pages/Attendance';
+import Fees from './pages/Fees';
+import Payments from './pages/Payments';
+import Receipts from './pages/Receipts';
 import Login from './pages/Login';
 import NotFound from './pages/NotFound';
 
@@ -50,6 +53,9 @@ function AppLayout() {
             <Route path="/seats" element={<Seats />} />
             <Route path="/trips" element={<Trips />} />
             <Route path="/attendance" element={<Attendance />} />
+            <Route path="/fees" element={<Fees />} />
+            <Route path="/payments" element={<Payments />} />
+            <Route path="/receipts" element={<Receipts />} />
             {/* Catch-all for modules in subsequent phases */}
             <Route path="*" element={<NotFound />} />
           </Routes>

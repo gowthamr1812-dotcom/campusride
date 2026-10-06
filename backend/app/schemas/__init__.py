@@ -54,6 +54,20 @@ from app.schemas.attendance import (
     StaffAttendanceListResponse,
     StaffAttendanceSummaryResponse
 )
+from app.schemas.finance import (
+    FeeStructureCreate,
+    FeeStructureUpdate,
+    FeeStructureResponse,
+    FeeStructureListResponse,
+    StudentFeeResponse,
+    StudentFeeListResponse,
+    PaymentCreate,
+    PaymentResponse,
+    PaymentListResponse,
+    ReceiptResponse,
+    ReceiptListResponse,
+    FinanceSummaryResponse
+)
 
 __all__ = [
     "HealthResponse",
@@ -103,5 +117,17 @@ __all__ = [
     "StaffAttendanceUpdate",
     "StaffAttendanceResponse",
     "StaffAttendanceListResponse",
-    "StaffAttendanceSummaryResponse"
+    "StaffAttendanceSummaryResponse",
+    "FeeStructureCreate",
+    "FeeStructureUpdate",
+    "FeeStructureResponse",
+    "FeeStructureListResponse",
+    "StudentFeeResponse",
+    "StudentFeeListResponse",
+    "PaymentCreate",
+    "PaymentResponse",
+    "PaymentListResponse",
+    "ReceiptResponse",
+    "ReceiptListResponse",
+    "FinanceSummaryResponse"
 ]
