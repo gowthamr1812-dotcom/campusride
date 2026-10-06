@@ -1,0 +1,63 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgis/postgis:16-3.4
+    container_name: campusride_postgres
+    restart: always
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-campusride}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-campusride_secure_pass}
+      POSTGRES_DB: ${POSTGRES_DB:-campusride_db}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U campusride -d campusride_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - campusride-net
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: campusride_backend
+    restart: always
+    environment:
+      DATABASE_URL: postgresql+psycopg2://${POSTGRES_USER:-campusride}:${POSTGRES_PASSWORD:-campusride_secure_pass}@db:5432/${POSTGRES_DB:-campusride_db}
+      ENVIRONMENT: production
+      DEBUG: "False"
+      JWT_SECRET: ${JWT_SECRET:-dev_secret_jwt_key_campusride_2026_very_secure_string_min_32_chars}
+      BACKEND_CORS_ORIGINS: '["http://localhost:5173","http://localhost:3000","http://127.0.0.1:5173"]'
+    ports:
+      - "8000:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - campusride-net
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: campusride_frontend
+    restart: always
+    ports:
+      - "5173:80"
+    depends_on:
+      - backend
+    networks:
+      - campusride-net
+
+volumes:
+  postgres_data:
+    driver: local
+
+networks:
+  campusride-net:
+    driver: bridge

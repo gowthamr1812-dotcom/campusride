@@ -1,0 +1,57 @@
+/* Neumorphism & Glassmorphism styles for CampusRide */
+
+.neu-panel {
+  background: #E8EDF3;
+  box-shadow: 6px 6px 14px rgba(166, 175, 195, 0.55), -6px -6px 14px rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-radius: 1rem;
+}
+
+.neu-panel-inset {
+  background: #E8EDF3;
+  box-shadow: inset 3px 3px 6px rgba(166, 175, 195, 0.6), inset -3px -3px 6px rgba(255, 255, 255, 0.9);
+  border-radius: 0.75rem;
+}
+
+.neu-button {
+  background: #E8EDF3;
+  box-shadow: 4px 4px 8px rgba(166, 175, 195, 0.5), -4px -4px 8px rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.neu-button:hover {
+  box-shadow: 2px 2px 5px rgba(166, 175, 195, 0.4), -2px -2px 5px rgba(255, 255, 255, 0.7);
+  transform: translateY(-1px);
+}
+
+.neu-button:active {
+  box-shadow: inset 3px 3px 6px rgba(166, 175, 195, 0.6), inset -3px -3px 6px rgba(255, 255, 255, 0.8);
+  transform: translateY(1px);
+}
+
+.neu-button-primary {
+  background: linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%);
+  color: #FFFFFF;
+  box-shadow: 4px 4px 10px rgba(37, 99, 235, 0.35), -2px -2px 6px rgba(255, 255, 255, 0.8);
+  border: none;
+  transition: all 0.2s ease;
+}
+
+.neu-button-primary:hover {
+  box-shadow: 6px 6px 14px rgba(37, 99, 235, 0.45);
+  transform: translateY(-1px);
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.05);
+  border-radius: 1rem;
+}
+
+.neu-badge {
+  box-shadow: 2px 2px 4px rgba(166, 175, 195, 0.3), -2px -2px 4px rgba(255, 255, 255, 0.7);
+}
