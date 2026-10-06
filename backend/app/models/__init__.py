@@ -4,6 +4,7 @@ from app.models.people import Driver, BusIncharge, Student
 from app.models.transport import Route, RouteStop, Bus, BusSeat, Trip
 from app.models.attendance import StudentAttendance, StaffAttendance
 from app.models.finance import FeeStructure, StudentFee, Payment, Receipt
+from app.models.fleet import MaintenanceLog, FuelLog, VehicleDocument
 
 __all__ = [
     "BaseModel",
@@ -24,5 +25,8 @@ __all__ = [
     "FeeStructure",
     "StudentFee",
     "Payment",
-    "Receipt"
+    "Receipt",
+    "MaintenanceLog",
+    "FuelLog",
+    "VehicleDocument"
 ]

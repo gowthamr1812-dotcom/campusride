@@ -1,7 +1,7 @@
 from fastapi import APIRouter
 from app.routers import (
     health, auth, drivers, incharges, students,
-    buses, routes, seats, trips, attendance, finance
+    buses, routes, seats, trips, attendance, finance, fleet
 )
 
 api_router = APIRouter()
@@ -18,3 +18,4 @@ api_router.include_router(seats.router)
 api_router.include_router(trips.router)
 api_router.include_router(attendance.router)
 api_router.include_router(finance.router)
+api_router.include_router(fleet.router)

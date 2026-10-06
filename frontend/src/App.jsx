@@ -18,6 +18,9 @@ import Attendance from './pages/Attendance';
 import Fees from './pages/Fees';
 import Payments from './pages/Payments';
 import Receipts from './pages/Receipts';
+import Maintenance from './pages/Maintenance';
+import Fuel from './pages/Fuel';
+import Documents from './pages/Documents';
 import Login from './pages/Login';
 import NotFound from './pages/NotFound';
 
@@ -56,6 +59,9 @@ function AppLayout() {
             <Route path="/fees" element={<Fees />} />
             <Route path="/payments" element={<Payments />} />
             <Route path="/receipts" element={<Receipts />} />
+            <Route path="/services" element={<Maintenance />} />
+            <Route path="/fuel" element={<Fuel />} />
+            <Route path="/documents" element={<Documents />} />
             {/* Catch-all for modules in subsequent phases */}
             <Route path="*" element={<NotFound />} />
           </Routes>

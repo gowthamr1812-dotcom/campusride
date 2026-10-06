@@ -68,6 +68,20 @@ from app.schemas.finance import (
     ReceiptListResponse,
     FinanceSummaryResponse
 )
+from app.schemas.fleet import (
+    MaintenanceLogCreate,
+    MaintenanceLogUpdate,
+    MaintenanceLogResponse,
+    MaintenanceLogListResponse,
+    FuelLogCreate,
+    FuelLogResponse,
+    FuelLogListResponse,
+    VehicleDocumentCreate,
+    VehicleDocumentUpdate,
+    VehicleDocumentResponse,
+    VehicleDocumentListResponse,
+    FleetSummaryResponse
+)
 
 __all__ = [
     "HealthResponse",
@@ -129,5 +143,17 @@ __all__ = [
     "PaymentListResponse",
     "ReceiptResponse",
     "ReceiptListResponse",
-    "FinanceSummaryResponse"
+    "FinanceSummaryResponse",
+    "MaintenanceLogCreate",
+    "MaintenanceLogUpdate",
+    "MaintenanceLogResponse",
+    "MaintenanceLogListResponse",
+    "FuelLogCreate",
+    "FuelLogResponse",
+    "FuelLogListResponse",
+    "VehicleDocumentCreate",
+    "VehicleDocumentUpdate",
+    "VehicleDocumentResponse",
+    "VehicleDocumentListResponse",
+    "FleetSummaryResponse"
 ]
