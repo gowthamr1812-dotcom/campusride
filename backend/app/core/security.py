@@ -46,12 +46,15 @@ def create_access_token(
     return jwt.encode(to_encode, settings.JWT_SECRET, algorithm=settings.JWT_ALGORITHM)
 
 
+import uuid
+
+
 def create_refresh_token(
     subject: Union[str, Any],
     session_id: Optional[int] = None,
     expires_delta: Optional[timedelta] = None
 ) -> str:
-    """Encodes a signed JWT refresh token."""
+    """Encodes a signed JWT refresh token with unique jti claim."""
     if expires_delta:
         expire = datetime.now(timezone.utc) + expires_delta
     else:
@@ -60,7 +63,8 @@ def create_refresh_token(
     to_encode: Dict[str, Any] = {
         "exp": expire,
         "sub": str(subject),
-        "type": "refresh"
+        "type": "refresh",
+        "jti": uuid.uuid4().hex
     }
     if session_id is not None:
         to_encode["session_id"] = session_id

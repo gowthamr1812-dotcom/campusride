@@ -6,6 +6,9 @@ import Header from './components/Header';
 import Sidebar from './components/Sidebar';
 import ProtectedRoute from './components/ProtectedRoute';
 import DashboardShell from './pages/DashboardShell';
+import Drivers from './pages/Drivers';
+import BusIncharges from './pages/BusIncharges';
+import Students from './pages/Students';
 import Login from './pages/Login';
 import NotFound from './pages/NotFound';
 
@@ -32,6 +35,9 @@ function AppLayout() {
         <main className="flex-1 p-6 max-w-7xl w-full mx-auto">
           <Routes>
             <Route path="/" element={<DashboardShell />} />
+            <Route path="/drivers" element={<Drivers />} />
+            <Route path="/incharges" element={<BusIncharges />} />
+            <Route path="/students" element={<Students />} />
             {/* Catch-all for modules in subsequent phases */}
             <Route path="*" element={<NotFound />} />
           </Routes>

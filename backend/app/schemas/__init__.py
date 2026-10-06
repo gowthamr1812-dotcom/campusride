@@ -8,6 +8,20 @@ from app.schemas.auth import (
     LoginHistoryResponse,
     ChangePasswordRequest
 )
+from app.schemas.people import (
+    DriverCreate,
+    DriverUpdate,
+    DriverResponse,
+    DriverListResponse,
+    BusInchargeCreate,
+    BusInchargeUpdate,
+    BusInchargeResponse,
+    BusInchargeListResponse,
+    StudentCreate,
+    StudentUpdate,
+    StudentResponse,
+    StudentListResponse
+)
 
 __all__ = [
     "HealthResponse",
@@ -17,5 +31,17 @@ __all__ = [
     "TokenResponse",
     "SessionResponse",
     "LoginHistoryResponse",
-    "ChangePasswordRequest"
+    "ChangePasswordRequest",
+    "DriverCreate",
+    "DriverUpdate",
+    "DriverResponse",
+    "DriverListResponse",
+    "BusInchargeCreate",
+    "BusInchargeUpdate",
+    "BusInchargeResponse",
+    "BusInchargeListResponse",
+    "StudentCreate",
+    "StudentUpdate",
+    "StudentResponse",
+    "StudentListResponse"
 ]
