@@ -54,6 +54,7 @@ ROLE_PERMISSIONS = {
     },
     UserRole.STUDENT: {
         "transport:own:read",
+        "attendance:own:read",
         "tracking:assigned:read",
         "eta:assigned:read",
         "payments:own:read",

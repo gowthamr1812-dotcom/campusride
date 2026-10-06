@@ -14,6 +14,7 @@ import BusDetails from './pages/BusDetails';
 import RoutesPage from './pages/Routes';
 import Seats from './pages/Seats';
 import Trips from './pages/Trips';
+import Attendance from './pages/Attendance';
 import Login from './pages/Login';
 import NotFound from './pages/NotFound';
 
@@ -48,6 +49,7 @@ function AppLayout() {
             <Route path="/routes" element={<RoutesPage />} />
             <Route path="/seats" element={<Seats />} />
             <Route path="/trips" element={<Trips />} />
+            <Route path="/attendance" element={<Attendance />} />
             {/* Catch-all for modules in subsequent phases */}
             <Route path="*" element={<NotFound />} />
           </Routes>

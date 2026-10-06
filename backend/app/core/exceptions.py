@@ -24,6 +24,24 @@ class EntityNotFoundException(CampusRideException):
         )
 
 
+class NotFoundException(CampusRideException):
+    def __init__(self, message: str = "Resource not found."):
+        super().__init__(
+            message=message,
+            code="NOT_FOUND",
+            status_code=status.HTTP_404_NOT_FOUND
+        )
+
+
+class BadRequestException(CampusRideException):
+    def __init__(self, message: str = "Invalid request payload."):
+        super().__init__(
+            message=message,
+            code="BAD_REQUEST",
+            status_code=status.HTTP_400_BAD_REQUEST
+        )
+
+
 class UnauthorizedException(CampusRideException):
     def __init__(self, message: str = "Invalid or expired authentication credentials."):
         super().__init__(

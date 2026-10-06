@@ -41,6 +41,19 @@ from app.schemas.transport import (
     TripResponse,
     TripListResponse
 )
+from app.schemas.attendance import (
+    StudentAttendanceCreate,
+    StudentAttendanceBatchCreate,
+    StudentAttendanceBatchItem,
+    StudentAttendanceResponse,
+    StudentAttendanceListResponse,
+    StudentAttendanceSummaryResponse,
+    StaffAttendanceCreate,
+    StaffAttendanceUpdate,
+    StaffAttendanceResponse,
+    StaffAttendanceListResponse,
+    StaffAttendanceSummaryResponse
+)
 
 __all__ = [
     "HealthResponse",
@@ -79,5 +92,16 @@ __all__ = [
     "TripCreate",
     "TripUpdate",
     "TripResponse",
-    "TripListResponse"
+    "TripListResponse",
+    "StudentAttendanceCreate",
+    "StudentAttendanceBatchCreate",
+    "StudentAttendanceBatchItem",
+    "StudentAttendanceResponse",
+    "StudentAttendanceListResponse",
+    "StudentAttendanceSummaryResponse",
+    "StaffAttendanceCreate",
+    "StaffAttendanceUpdate",
+    "StaffAttendanceResponse",
+    "StaffAttendanceListResponse",
+    "StaffAttendanceSummaryResponse"
 ]

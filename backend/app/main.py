@@ -14,6 +14,7 @@ from app.routers.api import api_router
 from app.seed.seed_users import seed_default_users
 from app.seed.seed_people import seed_people
 from app.seed.seed_transport import seed_transport
+from app.seed.seed_attendance import seed_attendance
 
 # Configure structured logging
 logging.basicConfig(
@@ -36,7 +37,8 @@ async def lifespan(app: FastAPI):
             seed_default_users()
             seed_people()
             seed_transport()
-            logger.info("Database models initialized and default users, people, and transport seeded.")
+            seed_attendance()
+            logger.info("Database models initialized and default users, people, transport, and attendance seeded.")
         except Exception as e:
             logger.error(f"Error during database startup initialization: {e}")
     else:
