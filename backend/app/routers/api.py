@@ -1,7 +1,8 @@
 from fastapi import APIRouter
 from app.routers import (
     health, auth, drivers, incharges, students,
-    buses, routes, seats, trips, attendance, finance, fleet, tracking, safety
+    buses, routes, seats, trips, attendance, finance, fleet, tracking, safety,
+    users, profile, settings
 )
 
 api_router = APIRouter()
@@ -21,3 +22,6 @@ api_router.include_router(finance.router)
 api_router.include_router(fleet.router)
 api_router.include_router(tracking.router)
 api_router.include_router(safety.router)
+api_router.include_router(users.router)
+api_router.include_router(profile.router)
+api_router.include_router(settings.router)

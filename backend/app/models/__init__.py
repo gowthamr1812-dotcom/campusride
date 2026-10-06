@@ -12,6 +12,7 @@ from app.models.safety import (
     SafetyInstruction,
     InstructionAcknowledgment
 )
+from app.models.settings import SystemSetting, UserPreference
 
 __all__ = [
     "BaseModel",
@@ -40,5 +41,7 @@ __all__ = [
     "Notification",
     "NotificationReadStatus",
     "SafetyInstruction",
-    "InstructionAcknowledgment"
+    "InstructionAcknowledgment",
+    "SystemSetting",
+    "UserPreference"
 ]

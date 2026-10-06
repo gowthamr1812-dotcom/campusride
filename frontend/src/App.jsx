@@ -25,6 +25,9 @@ import LiveTracking from './pages/LiveTracking';
 import Emergency from './pages/Emergency';
 import Notifications from './pages/Notifications';
 import SafetyInstructions from './pages/SafetyInstructions';
+import AdminUsers from './pages/AdminUsers';
+import AdminSettings from './pages/AdminSettings';
+import Profile from './pages/Profile';
 import Login from './pages/Login';
 import NotFound from './pages/NotFound';
 
@@ -70,6 +73,10 @@ function AppLayout() {
             <Route path="/emergency" element={<Emergency />} />
             <Route path="/notifications" element={<Notifications />} />
             <Route path="/instructions" element={<SafetyInstructions />} />
+            <Route path="/admin/users" element={<AdminUsers />} />
+            <Route path="/admin/settings" element={<AdminSettings />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/settings" element={<Profile />} />
             {/* Catch-all for modules in subsequent phases */}
             <Route path="*" element={<NotFound />} />
           </Routes>
