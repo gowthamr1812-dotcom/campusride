@@ -1,6 +1,8 @@
 from typing import Optional, List
-from datetime import date, datetime
+from datetime import date as dt_date, datetime
 from pydantic import BaseModel, ConfigDict
+
+date = dt_date
 
 
 # --- Student Attendance Schemas ---
@@ -22,7 +24,7 @@ class StudentAttendanceCreate(BaseModel):
     bus_id: int
     trip_id: Optional[int] = None
     stop_id: Optional[int] = None
-    date: Optional[date] = None
+    date: Optional[dt_date] = None
     trip_type: Optional[str] = "Morning Pickup"
     status: str = "Boarded"
     method: Optional[str] = "Manual"
@@ -39,7 +41,7 @@ class StudentAttendanceBatchItem(BaseModel):
 class StudentAttendanceBatchCreate(BaseModel):
     bus_id: int
     trip_id: Optional[int] = None
-    date: Optional[date] = None
+    date: Optional[dt_date] = None
     trip_type: str = "Morning Pickup"
     method: Optional[str] = "Manual"
     items: List[StudentAttendanceBatchItem]
@@ -51,7 +53,7 @@ class StudentAttendanceResponse(BaseModel):
     trip_id: Optional[int] = None
     bus_id: int
     stop_id: Optional[int] = None
-    date: date
+    date: dt_date
     trip_type: str
     status: str
     boarding_time: Optional[datetime] = None
@@ -75,7 +77,7 @@ class StudentAttendanceListResponse(BaseModel):
 
 
 class StudentAttendanceSummaryResponse(BaseModel):
-    date: date
+    date: dt_date
     total_expected: int
     total_boarded: int
     total_absent: int
@@ -90,7 +92,7 @@ class StaffAttendanceCreate(BaseModel):
     driver_id: Optional[int] = None
     incharge_id: Optional[int] = None
     bus_id: Optional[int] = None
-    date: Optional[date] = None
+    date: Optional[dt_date] = None
     status: str = "Present"  # Present, Absent, On Leave, Late
     check_in_time: Optional[datetime] = None
     check_out_time: Optional[datetime] = None
@@ -112,7 +114,7 @@ class StaffAttendanceResponse(BaseModel):
     incharge_id: Optional[int] = None
     user_id: Optional[int] = None
     bus_id: Optional[int] = None
-    date: date
+    date: dt_date
     status: str
     check_in_time: Optional[datetime] = None
     check_out_time: Optional[datetime] = None
@@ -134,7 +136,7 @@ class StaffAttendanceListResponse(BaseModel):
 
 
 class StaffAttendanceSummaryResponse(BaseModel):
-    date: date
+    date: dt_date
     total_staff: int
     drivers_present: int
     drivers_absent: int

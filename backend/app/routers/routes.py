@@ -7,7 +7,7 @@ from app.core.deps import get_current_user, require_roles
 from app.models.user import User, UserRole
 from app.schemas.transport import (
     RouteCreate, RouteUpdate, RouteResponse, RouteListResponse,
-    RouteStopCreate, RouteStopResponse
+    RouteStopCreate, RouteStopUpdate, RouteStopResponse
 )
 from app.services.transport import RouteService
 
@@ -29,6 +29,21 @@ async def list_routes(
 ):
     items = RouteService.list_routes(db=db, search=search, status=status_filter)
     return RouteListResponse(total=len(items), items=items)
+
+
+@router.get(
+    "/stops/all",
+    response_model=List[RouteStopResponse],
+    status_code=status.HTTP_200_OK,
+    summary="List All Transport Stops",
+    description="Retrieve all stops across all college routes."
+)
+async def list_all_stops(
+    route_id: Optional[int] = Query(None),
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    return RouteService.list_all_stops(db=db, route_id=route_id)
 
 
 @router.get(
@@ -92,6 +107,22 @@ async def add_stop(
 ):
     data.route_id = route_id
     return RouteService.add_stop(db=db, route_id=route_id, data=data)
+
+
+@router.put(
+    "/stops/{stop_id}",
+    response_model=RouteStopResponse,
+    status_code=status.HTTP_200_OK,
+    summary="Update Route Stop",
+    description="Updates existing route stop details."
+)
+async def update_stop(
+    stop_id: int,
+    data: RouteStopUpdate,
+    current_user: User = Depends(require_roles([UserRole.ADMIN, UserRole.TRANSPORT_MANAGER])),
+    db: Session = Depends(get_db)
+):
+    return RouteService.update_stop(db=db, stop_id=stop_id, data=data)
 
 
 @router.delete(

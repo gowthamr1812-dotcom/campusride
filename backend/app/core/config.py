@@ -42,6 +42,11 @@ class Settings(BaseSettings):
     JWT_ACCESS_EXPIRE_MINUTES: int = 60
     JWT_REFRESH_EXPIRE_DAYS: int = 7
 
+    # External Security APIs & Breach Auditing
+    CHECK_PWNED_PASSWORDS: bool = True
+    PWNED_PASSWORDS_TIMEOUT_SECONDS: float = 3.0
+    SSL_VERIFY_EXTERNAL_APIS: bool = True
+
     # Telematics / GPS Simulator
     GPS_SIMULATION_INTERVAL_SECONDS: int = 2
     GPS_UPDATE_BATCH_SIZE: int = 20

@@ -8,6 +8,7 @@ from app.models.user import User, UserRole, UserSession
 from app.models.people import Driver, BusIncharge, Student
 from app.models.settings import SystemSetting, UserPreference
 from app.core.security import get_password_hash, verify_password
+from app.core.security_apis import check_password_breach
 from app.schemas.settings import (
     AdminUserCreate,
     AdminUserUpdate,
@@ -86,6 +87,12 @@ class UserService:
                 detail=f"User with email '{data.email}' or username '{data.username}' already exists."
             )
 
+        if check_password_breach(data.password):
+            raise HTTPException(
+                status_code=400,
+                detail="Security Alert: This password has appeared in known data breaches. Please choose a more secure password."
+            )
+
         user = User(
             email=data.email,
             username=data.username,
@@ -128,6 +135,11 @@ class UserService:
         if data.is_active is not None:
             user.is_active = data.is_active
         if data.password:
+            if check_password_breach(data.password):
+                raise HTTPException(
+                    status_code=400,
+                    detail="Security Alert: This password has appeared in known data breaches. Please choose a more secure password."
+                )
             user.hashed_password = get_password_hash(data.password)
 
         db.commit()
@@ -235,6 +247,12 @@ class ProfileService:
 
         if len(data.new_password) < 6:
             raise HTTPException(status_code=400, detail="New password must be at least 6 characters.")
+
+        if check_password_breach(data.new_password):
+            raise HTTPException(
+                status_code=400,
+                detail="Security Alert: This password has appeared in known data breaches. Please choose a more secure password."
+            )
 
         current_user.hashed_password = get_password_hash(data.new_password)
         db.commit()

@@ -10,6 +10,7 @@ from app.core.exceptions import (
     campusride_exception_handler,
     global_exception_handler,
 )
+from app.core.middleware import SecurityHeadersMiddleware
 from app.routers.api import api_router
 from app.seed.seed_users import seed_default_users
 from app.seed.seed_people import seed_people
@@ -78,6 +79,7 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+app.add_middleware(SecurityHeadersMiddleware)
 
 # Register custom exception handlers
 app.add_exception_handler(CampusRideException, campusride_exception_handler)

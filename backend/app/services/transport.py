@@ -7,7 +7,7 @@ from app.models.transport import Bus, Route, RouteStop, BusSeat, Trip
 from app.models.people import Student
 from app.schemas.transport import (
     BusCreate, BusUpdate, BusSummaryResponse,
-    RouteCreate, RouteUpdate, RouteStopCreate,
+    RouteCreate, RouteUpdate, RouteStopCreate, RouteStopUpdate,
     TripCreate, TripUpdate
 )
 from app.core.exceptions import EntityNotFoundException, CampusRideException
@@ -179,6 +179,13 @@ class RouteService:
         return route
 
     @staticmethod
+    def list_all_stops(db: Session, route_id: Optional[int] = None) -> List[RouteStop]:
+        query = db.query(RouteStop)
+        if route_id:
+            query = query.filter(RouteStop.route_id == route_id)
+        return query.order_by(RouteStop.route_id.asc(), RouteStop.sequence.asc()).all()
+
+    @staticmethod
     def add_stop(db: Session, route_id: int, data: RouteStopCreate) -> RouteStop:
         route = db.query(Route).filter(Route.id == route_id).first()
         if not route:
@@ -186,6 +193,17 @@ class RouteService:
 
         stop = RouteStop(**data.model_dump())
         db.add(stop)
+        db.commit()
+        db.refresh(stop)
+        return stop
+
+    @staticmethod
+    def update_stop(db: Session, stop_id: int, data: RouteStopUpdate) -> RouteStop:
+        stop = db.query(RouteStop).filter(RouteStop.id == stop_id).first()
+        if not stop:
+            raise EntityNotFoundException("RouteStop", stop_id)
+        for field, value in data.model_dump(exclude_unset=True).items():
+            setattr(stop, field, value)
         db.commit()
         db.refresh(stop)
         return stop

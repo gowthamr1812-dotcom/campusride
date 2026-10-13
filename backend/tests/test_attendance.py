@@ -119,3 +119,20 @@ def test_staff_attendance_check_in_and_summary(client: TestClient):
     assert list_res.status_code == 200
     staff_items = list_res.json()["items"]
     assert len(staff_items) >= 40  # 20 drivers + 20 incharges
+
+    # Test recording staff attendance with date string
+    post_res = client.post(
+        "/api/v1/attendance/staff",
+        headers={"Authorization": f"Bearer {token}"},
+        json={
+            "staff_type": "DRIVER",
+            "driver_id": staff_items[0]["driver_id"] or 1,
+            "date": "2026-10-07",
+            "status": "Present",
+            "shift": "Morning Shift",
+            "remarks": "Verified by Admin"
+        }
+    )
+    assert post_res.status_code == 200
+    assert post_res.json()["status"] == "Present"
+    assert post_res.json()["date"] == "2026-10-07"

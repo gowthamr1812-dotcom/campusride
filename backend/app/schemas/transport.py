@@ -18,6 +18,16 @@ class RouteStopCreate(RouteStopBase):
     route_id: int
 
 
+class RouteStopUpdate(BaseModel):
+    stop_name: Optional[str] = None
+    latitude: Optional[float] = None
+    longitude: Optional[float] = None
+    sequence: Optional[int] = None
+    expected_arrival_time: Optional[str] = None
+    landmark: Optional[str] = None
+    route_id: Optional[int] = None
+
+
 class RouteStopResponse(RouteStopBase):
     id: int
     route_id: int
