@@ -1,0 +1,116 @@
+version: '3.8'
+
+services:
+  # -------------------------------------------------------------
+  # 1. Relational Database with PostGIS Geospatial Engine
+  # -------------------------------------------------------------
+  db:
+    image: postgis/postgis:16-3.4
+    container_name: campusride_db_prod
+    restart: always
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-campusride_admin}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Error: POSTGRES_PASSWORD must be set in .env.production}
+      POSTGRES_DB: ${POSTGRES_DB:-campusride_production}
+    volumes:
+      - postgres_prod_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-campusride_admin} -d ${POSTGRES_DB:-campusride_production}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - campusride-internal-net
+    # Security: Database is NOT exposed to the public internet
+    expose:
+      - "5432"
+
+  # -------------------------------------------------------------
+  # 2. Redis Message Broker & Telematics Cache
+  # -------------------------------------------------------------
+  redis:
+    image: redis:7-alpine
+    container_name: campusride_redis_prod
+    restart: always
+    command: >
+      sh -c 'if [ -n "$$REDIS_PASSWORD" ]; then
+        redis-server --requirepass "$$REDIS_PASSWORD" --appendonly yes;
+      else
+        redis-server --appendonly yes;
+      fi'
+    environment:
+      REDIS_PASSWORD: ${REDIS_PASSWORD:-}
+    volumes:
+      - redis_prod_data:/data
+    healthcheck:
+      test: ["CMD-SHELL", "redis-cli ping | grep -q PONG || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - campusride-internal-net
+    expose:
+      - "6379"
+
+  # -------------------------------------------------------------
+  # 3. High-Performance FastAPI Backend
+  # -------------------------------------------------------------
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: campusride_backend_prod
+    restart: always
+    command: >
+      sh -c "uvicorn app.main:app --host 0.0.0.0 --port 8000 --workers 4 --proxy-headers --forwarded-allow-ips='*'"
+    environment:
+      DATABASE_URL: postgresql+psycopg2://${POSTGRES_USER:-campusride_admin}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB:-campusride_production}
+      ENVIRONMENT: production
+      DEBUG: "False"
+      JWT_SECRET: ${JWT_SECRET:?Error: JWT_SECRET must be set in .env.production}
+      JWT_ACCESS_EXPIRE_MINUTES: ${JWT_ACCESS_EXPIRE_MINUTES:-60}
+      JWT_REFRESH_EXPIRE_DAYS: ${JWT_REFRESH_EXPIRE_DAYS:-7}
+      BACKEND_CORS_ORIGINS: ${BACKEND_CORS_ORIGINS:-["https://campusride.yourdomain.com"]}
+      CHECK_PWNED_PASSWORDS: "true"
+      PWNED_PASSWORDS_TIMEOUT_SECONDS: "3.0"
+      SSL_VERIFY_EXTERNAL_APIS: "true"
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - campusride-internal-net
+      - campusride-edge-net
+    expose:
+      - "8000"
+
+  # -------------------------------------------------------------
+  # 4. Frontend Single-Page App & Reverse Proxy Gateway
+  # -------------------------------------------------------------
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: campusride_gateway_prod
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - backend
+    networks:
+      - campusride-edge-net
+
+volumes:
+  postgres_prod_data:
+    driver: local
+  redis_prod_data:
+    driver: local
+
+networks:
+  campusride-internal-net:
+    driver: bridge
+    internal: true # Air-gapped network: only backend can contact db/redis
+  campusride-edge-net:
+    driver: bridge
