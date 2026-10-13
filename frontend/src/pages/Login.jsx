@@ -60,11 +60,11 @@ const DEMO_ACCOUNTS = [
 ];
 
 export default function Login() {
-  const [usernameOrEmail, setUsernameOrEmail] = useState('admin@campusride.edu');
-  const [password, setPassword] = useState('Admin@123');
+  const [usernameOrEmail, setUsernameOrEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const { login } = useAuth();
   const navigate = useNavigate();
@@ -74,15 +74,15 @@ export default function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!usernameOrEmail || !password) {
-      setErrorMessage('Please enter both your email/username and password.');
+    setErrorMessage(null);
+
+    if (!usernameOrEmail.trim() || !password) {
+      setErrorMessage('Please enter both your credentials to sign in.');
       return;
     }
 
-    setErrorMessage(null);
     setIsSubmitting(true);
-
-    const result = await login(usernameOrEmail, password);
+    const result = await login(usernameOrEmail.trim(), password);
     setIsSubmitting(false);
 
     if (result.success) {

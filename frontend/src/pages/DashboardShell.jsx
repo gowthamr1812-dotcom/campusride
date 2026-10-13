@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { 
   Bus, 
   Users, 
@@ -22,6 +23,7 @@ import StatusBadge from '../components/StatusBadge';
 import { healthApi } from '../services/api';
 
 export default function DashboardShell() {
+  const navigate = useNavigate();
   const [healthData, setHealthData] = useState(null);
   const [isLoadingHealth, setIsLoadingHealth] = useState(true);
   const [lastRefreshed, setLastRefreshed] = useState(new Date());
@@ -206,7 +208,10 @@ export default function DashboardShell() {
             </p>
 
             <div className="space-y-2.5">
-              <button className="w-full neu-button p-3 rounded-xl text-xs font-semibold text-slate-700 flex items-center justify-between hover:text-blue-600">
+              <button 
+                onClick={() => navigate('/tracking')}
+                className="w-full neu-button p-3 rounded-xl text-xs font-semibold text-slate-700 flex items-center justify-between hover:text-blue-600"
+              >
                 <div className="flex items-center gap-2.5">
                   <Activity className="w-4 h-4 text-blue-600" />
                   <span>Inspect Live Telematics Map</span>
@@ -214,7 +219,10 @@ export default function DashboardShell() {
                 <ArrowUpRight className="w-4 h-4 text-slate-400" />
               </button>
 
-              <button className="w-full neu-button p-3 rounded-xl text-xs font-semibold text-slate-700 flex items-center justify-between hover:text-blue-600">
+              <button 
+                onClick={() => navigate('/routes')}
+                className="w-full neu-button p-3 rounded-xl text-xs font-semibold text-slate-700 flex items-center justify-between hover:text-blue-600"
+              >
                 <div className="flex items-center gap-2.5">
                   <GitFork className="w-4 h-4 text-blue-600" />
                   <span>View 20 Campus Routes</span>
@@ -222,7 +230,10 @@ export default function DashboardShell() {
                 <ArrowUpRight className="w-4 h-4 text-slate-400" />
               </button>
 
-              <button className="w-full neu-button p-3 rounded-xl text-xs font-semibold text-slate-700 flex items-center justify-between hover:text-blue-600">
+              <button 
+                onClick={() => navigate('/fees')}
+                className="w-full neu-button p-3 rounded-xl text-xs font-semibold text-slate-700 flex items-center justify-between hover:text-blue-600"
+              >
                 <div className="flex items-center gap-2.5">
                   <CreditCard className="w-4 h-4 text-blue-600" />
                   <span>Fee Collection Summary</span>
@@ -230,7 +241,10 @@ export default function DashboardShell() {
                 <ArrowUpRight className="w-4 h-4 text-slate-400" />
               </button>
 
-              <button className="w-full neu-button p-3 rounded-xl text-xs font-semibold text-slate-700 flex items-center justify-between hover:text-blue-600">
+              <button 
+                onClick={() => navigate('/services')}
+                className="w-full neu-button p-3 rounded-xl text-xs font-semibold text-slate-700 flex items-center justify-between hover:text-blue-600"
+              >
                 <div className="flex items-center gap-2.5">
                   <Wrench className="w-4 h-4 text-blue-600" />
                   <span>Preventative Maintenance</span>

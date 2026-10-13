@@ -190,7 +190,12 @@ export default function LiveTracking() {
       clearInterval(pollTimer);
       if (wsRef.current) {
         if (wsRef.current.pingInterval) clearInterval(wsRef.current.pingInterval);
-        wsRef.current.close();
+        const socket = wsRef.current;
+        if (socket.readyState === WebSocket.OPEN) {
+          socket.close(1000, 'Component unmounted');
+        } else if (socket.readyState === WebSocket.CONNECTING) {
+          socket.onopen = () => socket.close(1000, 'Component unmounted');
+        }
       }
       if (simulationTimerRef.current) clearInterval(simulationTimerRef.current);
     };

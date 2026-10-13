@@ -12,6 +12,7 @@ import Students from './pages/Students';
 import Buses from './pages/Buses';
 import BusDetails from './pages/BusDetails';
 import RoutesPage from './pages/Routes';
+import Stops from './pages/Stops';
 import Seats from './pages/Seats';
 import Trips from './pages/Trips';
 import Attendance from './pages/Attendance';
@@ -25,6 +26,8 @@ import LiveTracking from './pages/LiveTracking';
 import Emergency from './pages/Emergency';
 import Notifications from './pages/Notifications';
 import SafetyInstructions from './pages/SafetyInstructions';
+import AiAssistant from './pages/AiAssistant';
+import Reports from './pages/Reports';
 import AdminUsers from './pages/AdminUsers';
 import AdminSettings from './pages/AdminSettings';
 import Profile from './pages/Profile';
@@ -60,6 +63,7 @@ function AppLayout() {
             <Route path="/buses" element={<Buses />} />
             <Route path="/buses/:busIdentifier" element={<BusDetails />} />
             <Route path="/routes" element={<RoutesPage />} />
+            <Route path="/stops" element={<Stops />} />
             <Route path="/seats" element={<Seats />} />
             <Route path="/trips" element={<Trips />} />
             <Route path="/attendance" element={<Attendance />} />
@@ -73,6 +77,8 @@ function AppLayout() {
             <Route path="/emergency" element={<Emergency />} />
             <Route path="/notifications" element={<Notifications />} />
             <Route path="/instructions" element={<SafetyInstructions />} />
+            <Route path="/ai" element={<AiAssistant />} />
+            <Route path="/reports" element={<Reports />} />
             <Route path="/admin/users" element={<AdminUsers />} />
             <Route path="/admin/settings" element={<AdminSettings />} />
             <Route path="/profile" element={<Profile />} />
