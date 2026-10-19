@@ -36,6 +36,13 @@ class Settings(BaseSettings):
     DATABASE_URL: str = "sqlite:///./campusride_dev.db"
     TEST_DATABASE_URL: str = "sqlite:///./test_campusride.db"
 
+    @field_validator("DATABASE_URL", mode="before")
+    @classmethod
+    def assemble_db_url(cls, v: str) -> str:
+        if isinstance(v, str) and v.startswith("postgres://"):
+            return v.replace("postgres://", "postgresql://", 1)
+        return v
+
     # Security
     JWT_SECRET: str = "dev_secret_jwt_key_campusride_2026_very_secure_string_min_32_chars"
     JWT_ALGORITHM: str = "HS256"
