@@ -142,8 +142,16 @@ export default function LiveTracking() {
     fetchTelemetry();
 
     // 4. Connect WebSocket with Automatic Fallback
-    const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
-    const wsUrl = `${protocol}//${window.location.host}/ws/tracking`;
+    let wsUrl;
+    const apiBase = import.meta.env.VITE_API_BASE_URL;
+    if (apiBase && (apiBase.startsWith('http://') || apiBase.startsWith('https://'))) {
+      const parsed = new URL(apiBase);
+      const wsProto = parsed.protocol === 'https:' ? 'wss:' : 'ws:';
+      wsUrl = `${wsProto}//${parsed.host}/ws/tracking`;
+    } else {
+      const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+      wsUrl = `${protocol}//${window.location.host}/ws/tracking`;
+    }
 
     try {
       const ws = new WebSocket(wsUrl);

@@ -96,7 +96,7 @@ app.add_api_websocket_route("/ws/tracking", websocket_tracking_endpoint)
 app.add_api_websocket_route("/ws/notifications", websocket_notifications_endpoint)
 
 
-@app.get("/", tags=["Root"])
+@app.api_route("/", methods=["GET", "HEAD"], tags=["Root"])
 async def root():
     return {
         "name": settings.PROJECT_NAME,

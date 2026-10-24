@@ -5,8 +5,9 @@ from app.services.health import get_system_health
 router = APIRouter(prefix="/health", tags=["Health & Diagnostics"])
 
 
-@router.get(
+@router.api_route(
     "",
+    methods=["GET", "HEAD"],
     response_model=HealthResponse,
     status_code=status.HTTP_200_OK,
     summary="Application Health Probe",
